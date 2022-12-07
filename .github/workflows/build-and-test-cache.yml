@@ -16,13 +16,19 @@ name: Continuous Integration Cache
 
 on:
   workflow_dispatch:
-  # schedule:
-    # - cron: "*/30 * * * *"
+  schedule:
+    - cron: "*/30 * * * *"
 
 jobs:
 
   build-skills-service-for-ui-tests:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+        matrix:
+            os:
+                - ubuntu-latest
+                - macos-latest
+                - windows-latest
 
     steps:
       - uses: actions/checkout@v3
